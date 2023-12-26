@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Formulário de Busca</title>
+    <!-- Adicione os links para o Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Adicione o link para o jQuery (necessário para Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <!-- Adicione o link para o Popper.js (necessário para Bootstrap) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <!-- Adicione o link para o Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container mt-4">
+    <h2>Formulário de Busca</h2>
+    <form id="searchForm" action="/buscar">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="inputData">Data</label>
+                <input type="date" class="form-control" id="inputData" name="data">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputNome">Nome do Aluno</label>
+                <input type="text" class="form-control" id="inputNome" name="nome">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputStatus1">Status 1</label>
+                <input type="text" class="form-control" id="inputStatus1" name="status1">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="inputStatus2">Status 2</label>
+                <input type="text" class="form-control" id="inputStatus2" name="status2">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputNumeroATA">Número ATA</label>
+                <input type="text" class="form-control" id="inputNumeroATA" name="numeroATA">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputAtendidoPor">Atendido por</label>
+                <input type="text" class="form-control" id="inputAtendidoPor" name="atendidoPor">
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="buscar()">Buscar</button>
+    </form>
+
+    <!-- Onde você exibirá os resultados da busca -->
+    <div id="resultados" class="mt-4">
+        <!-- Os resultados da busca serão exibidos aqui -->
+    </div>
+</div>
+
+<script>
+    function buscar() {
+        // Aqui você pode implementar a lógica de busca usando os valores dos campos do formulário
+        // Por exemplo, você pode usar JavaScript para enviar uma solicitação AJAX ao servidor
+        // e obter os resultados da busca.
+        // Depois, exiba os resultados na área designada, como a div com id "resultados".
+        // Por enquanto, vamos apenas exibir uma mensagem de exemplo.
+
+        var resultadosDiv = document.getElementById('resultados');
+        resultadosDiv.innerHTML = '<p>Resultados da busca serão exibidos aqui.</p>';
+    }
+</script>
+
+</body>
+</html>

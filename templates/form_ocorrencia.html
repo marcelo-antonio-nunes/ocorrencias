@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <title>Formulário de Ocorrência Escolar</title>
+</head>
+<body>
+
+<div class="container mt-5">
+  <h2 class="mb-4">Formulário de Ocorrência Escolar</h2>
+  
+  <form id="ocorrenciaForm" action="/salvar_ocorrencia" method="post">
+    <!-- Informações básicas -->
+    <div class="form-group">
+      <label for="data">Data:</label>
+      <input type="date" class="form-control" name="data" required>
+    </div>
+
+    <div class="form-group">
+      <label for="horario">Horário:</label>
+      <input type="time" class="form-control" name="horario" required>
+    </div>
+
+    <div class="form-group">
+      <label for="nomeAluno">Nome do Aluno:</label>
+      <input type="text" class="form-control" name="nomeAluno" required>
+    </div>
+
+    <div class="form-group">
+        <label for="serie">Série (Ano):</label>
+        <input type="text" class="form-control" name="serie" required>
+      </div>
+
+    <div class="form-group">
+      <label for="turma">Turma:</label>
+      <select class="form-control" name="turma" required>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+        <option value="E">E</option>
+        <option value="F">F</option>
+        <option value="G">G</option>
+        <option value="H">H</option>
+        <option value="I">I</option>
+        <!-- Adicione as outras opções de turma conforme necessário -->
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="nomeProf">Nome do Professor:</label>
+      <input type="text" class="form-control" name="nomeProf" required>
+    </div>
+
+    <div class="form-group">
+      <label for="materia">Matéria:</label>
+      <select class="form-control" name="materia" required>
+        <option value="Portugues">Português</option>
+        <option value="Matematica">Matemática</option>
+        <option value="Ciencias">Ciências</option>
+        <option value="Historia">História</option>
+        <option value="Ingles">Inglês</option>
+        <option value="Educacao_Fisica">Educação Física</option>
+        <option value="Geografia">Geografia</option>
+        <option value="Tecnologia">Tecnologia</option>
+        <option value="Orientação_de_Estudos">Orientação de Estudos</option>
+        <option value="Projeto_de_Vida">Projeto de Vida</option>
+        <option value="Intervalo">Intervalo</option>
+        <option value="Entrada">Entrada</option>
+        <option value="Saída">Saída</option>
+        <!-- Adicione as outras opções de matéria conforme necessário -->
+      </select>
+    </div>
+
+    <!-- Ocorrência -->
+    <div class="form-group">
+      <label for="ocorrencia">Ocorrência:</label>
+      <textarea class="form-control" name="ocorrencia" rows="3" required></textarea>
+    </div>
+
+    <!-- Status 1 -->
+    <div class="form-group">
+      <label for="status1">Status 1:</label>
+      <select class="form-control" name="status1" required>
+        <option value="Concluido">Concluído</option>
+        <option value="CT">CT</option>
+        <option value="Pendente">Pendente</option>
+        <option value="Encaminhado">Encaminhado</option>
+      </select>
+    </div>
+
+    <!-- Encaminhamento -->
+    <div class="form-group">
+      <label for="encaminhamento">Encaminhamento:</label>
+      <textarea class="form-control" name="encaminhamento" rows="3" required></textarea>
+    </div>
+
+    <!-- Status 2 -->
+    <div class="form-group">
+      <label for="status2">Status 2:</label>
+      <select class="form-control" name="status2" required>
+        <option value="Resolvido">Resolvido</option>
+        <option value="Pendente">Pendente</option>
+      </select>
+    </div>
+
+    <!-- Outras informações -->
+    <div class="form-group">
+      <label for="numeroATA">Número da ATA:</label>
+      <input type="text" class="form-control" name="numeroATA">
+    </div>
+
+    <div class="form-group">
+      <label for="convocacao">Convocação:</label>
+      <input type="text" class="form-control" name="convocacao">
+    </div>
+
+    <div class="form-group">
+      <label for="responsavel">Responsável (Tel):</label>
+      <input type="text" class="form-control" name="responsavel">
+    </div>
+
+    <!-- Botão de envio -->
+    <button type="submit" class="btn btn-primary"  >Enviar Ocorrência</button>
+  </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
