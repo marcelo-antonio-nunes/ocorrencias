@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -35,65 +36,79 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="container mt-4">
-    <h2 class="text-center mb-4">Formulário de Busca</h2>
-    <!-- Adicione o formulário Flask com a ação apontando para a rota '/busca' -->
-    <form id="searchForm" method="post" action="/busca">
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="inputData">Data</label>
-                <input type="date" class="form-control" id="inputData" name="data">
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Formulário de Busca</h2>
+        <!-- Adicione o formulário Flask com a ação apontando para a rota '/busca' -->
+        <form id="searchForm" method="post" action="/busca">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputData">Data</label>
+                    <input type="date" class="form-control" id="inputData" name="data">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputNome">Nome do Aluno</label>
+                    <input type="text" class="form-control" id="inputNome" name="nome_aluno">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputStatus1">Status 1</label>
+                    <input type="text" class="form-control" id="inputStatus1" name="status1">
+                </div>
             </div>
-            <div class="form-group col-md-4">
-                <label for="inputNome">Nome do Aluno</label>
-                <input type="text" class="form-control" id="inputNome" name="nome_aluno">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputStatus2">Status 2</label>
+                    <input type="text" class="form-control" id="inputStatus2" name="status2">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputNumeroATA">Número ATA</label>
+                    <input type="text" class="form-control" id="inputNumeroATA" name="numeroATA">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputAtendidoPor">Atendido por</label>
+                    <input type="text" class="form-control" id="inputAtendidoPor" name="nome_prof">
+                </div>
             </div>
-            <div class="form-group col-md-4">
-                <label for="inputStatus1">Status 1</label>
-                <input type="text" class="form-control" id="inputStatus1" name="status1">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="SerieAno">Serie(Ano)</label>
+                    <input type="text" class="form-control" id="SerieAno" name="serie">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="Turma">Turma</label>
+                    <input type="text" class="form-control" id="Turma" name="turma">
+                </div>
             </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="inputStatus2">Status 2</label>
-                <input type="text" class="form-control" id="inputStatus2" name="status2">
+            <div class="form-group text-center">
+                <!-- Mude o tipo de botão para 'submit' para enviar o formulário -->
+                <button type="submit" class="btn btn-primary">Buscar</button>
             </div>
-            <div class="form-group col-md-4">
-                <label for="inputNumeroATA">Número ATA</label>
-                <input type="text" class="form-control" id="inputNumeroATA" name="numeroATA">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="inputAtendidoPor">Atendido por</label>
-                <input type="text" class="form-control" id="inputAtendidoPor" name="atendidoPor">
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="SerieAno">Serie(Ano)</label>
-                <input type="text" class="form-control" id="SerieAno" name="serie">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="Turma">Turma</label>
-                <input type="text" class="form-control" id="Turma" name="turma">
-            </div>
-        </div>
-        <div class="form-group text-center">
-            <!-- Mude o tipo de botão para 'submit' para enviar o formulário -->
-            <button type="submit" class="btn btn-primary">Buscar</button>
-        </div>
-    </form>
+        </form>
 
-    <!-- Onde você exibirá os resultados da busca -->
-    <div id="resultados" class="mt-4">
-        <!-- Os resultados da busca serão exibidos aqui -->
-        {% if ocorrencias %}
-        <li>Aluno : {{ocorrencias[0][3]}}</li><br>
-        Ocorrencia : {{ocorrencias[0][8]}}
-        {% endif %}
+        <!-- Onde você exibirá os resultados da busca -->
+        <div id="resultados" class="mt-4">
+            <!-- Os resultados da busca serão exibidos aqui -->
+            {% if ocorrencias %}
+    <ul class="ocorrencia-list">
+        <div>
+        <tr><strong>Data:</strong> {{ocorrencias[0][1]}}</tr><br>
+        <tr><strong>Horário:</strong> {{ocorrencias[0][2]}}</tr><br>
+        <tr><strong>Aluno:</strong> {{ocorrencias[0][3]}}</tr><br>
+        <tr><strong>Turma:</strong> {{ocorrencias[0][5]}}</tr><br>
+        <tr><strong>Série:</strong> {{ocorrencias[0][4]}}</tr><br>
+        <tr><strong>Professor:</strong> {{ocorrencias[0][6]}}</li><br>
+        <div><strong>Ocorrência:</strong></div>
     </div>
-</div>
+        <div>
+            <textarea rows="4" cols="50">{{ocorrencias[0][8]}}</textarea>
+        </div>
+    </ul>
+{% endif %}
+        </div>
+    </div>
 
 </body>
+
 </html>

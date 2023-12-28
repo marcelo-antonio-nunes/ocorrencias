@@ -68,7 +68,7 @@ def buscar_ocorrencias():
         status1 = request.form.get("status1")
         status2 = request.form.get("status2")
         numero_ata = request.form.get("numeroATA")
-        atendido_por = request.form.get("atendidoPor")
+        nome_prof = request.form.get("nome_prof")
         turma = request.form.get("turma")
         serie = request.form.get("serie")
 
@@ -79,7 +79,7 @@ def buscar_ocorrencias():
             "status1": status1,
             "status2": status2,
             "numero_ata": numero_ata,
-            "responsavel": atendido_por,
+            "nome_prof": nome_prof,
             "turma": turma,
             "serie": serie,
         }
@@ -89,7 +89,7 @@ def buscar_ocorrencias():
             or status1
             or status2
             or numero_ata
-            or atendido_por
+            or nome_prof
             or turma
             or serie
         ):
