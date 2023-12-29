@@ -46,6 +46,7 @@ def salvar_ocorrencia(data, horario, nome_aluno, turma, serie, nome_prof, materi
         conn.commit()
 
 def consultar_ocorrencias(filtros):
+    ocorrencias = []
     with conectar_banco() as conn:
         cursor = conn.cursor()
 
@@ -66,7 +67,8 @@ def consultar_ocorrencias(filtros):
         # cursor.execute(sql, params)
         for c, v in filtros.items():
             if v:
-                cursor.execute(f"select * from ocorrencias where {c} =?",[v,])
+                ocorrencias.append( cursor.execute(f"select * from ocorrencias where {c} =?",[v,]))
+               
                 print(f"V={v}")
                 print(F"C={c}")
         ocorrencias = cursor.fetchall()

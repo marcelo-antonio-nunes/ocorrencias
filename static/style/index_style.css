@@ -1,0 +1,56 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #FFFFFF;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background-color:#1375BC;
+    padding: 15px 0;
+    text-align: center;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adição da sombra preta nas letras */
+}
+
+.menu {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+    margin: 0 20px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease-in-out;
+    /* Adição das propriedades para o efeito 3D e sombra */
+    text-transform: uppercase;
+    font-size: 1.2em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    transform: perspective(3px) translateZ(0);
+    backface-visibility: hidden;
+}
+
+.menu a:hover {
+    background-color: #2980b9;
+}
+
+/* Estilos para centralizar a imagem */
+.image-container {
+    text-align: center;
+    margin-top: 20px; /* Ajuste conforme necessário */
+}
+
+.image-container img {
+    max-width: 100%; /* Garante que a imagem não ultrapasse a largura do contêiner */
+    max-height: 400px; /* Ajuste conforme necessário */
+}

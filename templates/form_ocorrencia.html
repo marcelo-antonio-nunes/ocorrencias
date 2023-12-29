@@ -119,16 +119,38 @@
 
     <div class="form-group">
       <label for="responsavel">Responsável (Tel):</label>
-      <input type="text" class="form-control" name="responsavel">
-    </div>
+      <input type="text" class="form-control" name="responsavel" id="telefone">
+  </div>
+   
 
     <!-- Botão de envio -->
     <button type="submit" class="btn btn-primary"  >Enviar Ocorrência</button>
+    <a class="btv2"  href="/">Voltar</a>
   </form>
 </div>
 
+<style>
+  .btv2{
+               
+               padding: 5px;
+               margin-top: 20px;
+               margin-left: 20px;
+               border-radius: 5px;
+               height: 60px;
+               width: 100px;
+               color: #ffffff;
+               background-color: yellow;
+               text-align: center;
+               
+           }
+</style>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+  $(document).ready(function(){
+      $('#telefone').inputmask('(99) 9999-9999');
+  });
+</script>
 </body>
 </html>

@@ -10,8 +10,11 @@ DATABASE = "ocorrencias.db"
 # Página inicial
 @app.route("/")
 def index():
-    return render_template("form_ocorrencia.html")
+    return render_template("index.html")
 
+@app.route("/ocorrencia")
+def ocorrencia():
+    return render_template("form_ocorrencia.html")
 
 # Rota para lidar com o envio do formulário
 @app.route("/salvar_ocorrencia", methods=["POST"])
@@ -94,7 +97,10 @@ def buscar_ocorrencias():
             or serie
         ):
             # Consulte o banco de dados com base nos filtros
-            ocorrencias = consultar_ocorrencias(filtros)
+            r = consultar_ocorrencias(filtros)
+            ocorrencias = []
+            for i in r:
+                ocorrencias.append(i)
             return render_template(
                 "busca.html", ocorrencias=ocorrencias, len=len(ocorrencias)
             )

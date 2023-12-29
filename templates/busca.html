@@ -34,6 +34,19 @@
         button {
             margin-top: 20px;
         }
+        .btv{
+               
+               padding: 5px;
+               margin-top: 20px;
+               margin-left: 20px;
+               border-radius: 5px;
+               height: 40px;
+               width: 80px;
+               color: #ffffff;
+               background-color: yellow;
+               text-align: center;
+               
+           }
     </style>
 </head>
 
@@ -81,34 +94,38 @@
                     <input type="text" class="form-control" id="Turma" name="turma">
                 </div>
             </div>
-            <div class="form-group text-center">
+            <div class="form-group text-center d-flex flex-row justify-content-center">
                 <!-- Mude o tipo de botão para 'submit' para enviar o formulário -->
                 <button type="submit" class="btn btn-primary">Buscar</button>
+                <!-- Adicione o botão "Voltar" -->
+                <a class="btv"  href="/">Voltar</a>
             </div>
+            
         </form>
-
+       
+        
         <!-- Onde você exibirá os resultados da busca -->
         <div id="resultados" class="mt-4">
             <!-- Os resultados da busca serão exibidos aqui -->
             {% if ocorrencias %}
     <ul class="ocorrencia-list">
+        {% for i in range(len)%}
         <div>
-        <tr><strong>Data:</strong> {{ocorrencias[0][1]}}</tr><br>
-        <tr><strong>Horário:</strong> {{ocorrencias[0][2]}}</tr><br>
-        <tr><strong>Aluno:</strong> {{ocorrencias[0][3]}}</tr><br>
-        <tr><strong>Turma:</strong> {{ocorrencias[0][5]}}</tr><br>
-        <tr><strong>Série:</strong> {{ocorrencias[0][4]}}</tr><br>
-        <tr><strong>Professor:</strong> {{ocorrencias[0][6]}}</li><br>
+        <tr><strong>Data:</strong> {{ocorrencias[i][1]}}</tr><br>
+        <tr><strong>Horário:</strong> {{ocorrencias[i][2]}}</tr><br>
+        <tr><strong>Aluno:</strong> {{ocorrencias[i][3]}}</tr><br>
+        <tr><strong>Turma:</strong> {{ocorrencias[i][0][5]}}</tr><br>
+        <tr><strong>Série:</strong> {{ocorrencias[i][0]}}</tr><br>
+        <tr><strong>Professor:</strong> {{ocorrencias[i][6]}}</li><br>
         <div><strong>Ocorrência:</strong></div>
+    
+        <textarea rows="4" cols="50">{{ocorrencias[i][8]}}</textarea>
     </div>
-        <div>
-            <textarea rows="4" cols="50">{{ocorrencias[0][8]}}</textarea>
-        </div>
-    </ul>
+</ul>
+{% endfor %}
 {% endif %}
         </div>
     </div>
-
 </body>
 
 </html>
