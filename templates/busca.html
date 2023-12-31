@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -53,7 +53,7 @@
 <body>
 
     <div class="container mt-4">
-        <h2 class="text-center mb-4">Formulário de Busca</h2>
+        <h2 class="text-center mb-4">Formulário de Pesquisa</h2>
         <!-- Adicione o formulário Flask com a ação apontando para a rota '/busca' -->
         <form id="searchForm" method="post" action="/busca">
             <div class="form-row">
@@ -67,13 +67,24 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputStatus1">Status 1</label>
-                    <input type="text" class="form-control" id="inputStatus1" name="status1">
+                    <select type="text" class="form-control" id="inputStatus1" name="status1">
+                        <option value=""></option>
+                          <option value="Concluido">Concluído</option>
+                          <option value="CT">CT</option>
+                          <option value="Pendente">Pendente</option>
+                          <option value="Encaminhado">Encaminhado</option>
+                        </select>
+                      
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="inputStatus2">Status 2</label>
-                    <input type="text" class="form-control" id="inputStatus2" name="status2">
+                    <select type="text" class="form-control" id="inputStatus2" name="status2">
+                    <option value=""></option>
+                    <option value="Resolvido">Resolvido</option>
+                    <option value="Pendente">Pendente</option>
+                </select>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputNumeroATA">Número ATA</label>
@@ -91,7 +102,19 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="Turma">Turma</label>
-                    <input type="text" class="form-control" id="Turma" name="turma">
+                    <select type="text" class="form-control" id="Turma" name="turma">
+                    <option value=""></option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="G">G</option>
+                    <option value="H">H</option>
+                    <option value="I">I</option>
+        <!-- Adicione as outras opções de turma conforme necessário -->
+      </select>
                 </div>
             </div>
             <div class="form-group text-center d-flex flex-row justify-content-center">
@@ -105,27 +128,33 @@
        
         
         <!-- Onde você exibirá os resultados da busca -->
-        <div id="resultados" class="mt-4">
-            <!-- Os resultados da busca serão exibidos aqui -->
-            {% if ocorrencias %}
-    <ul class="ocorrencia-list">
-        {% for i in range(len)%}
-        <div>
-        <tr><strong>Data:</strong> {{ocorrencias[i][1]}}</tr><br>
-        <tr><strong>Horário:</strong> {{ocorrencias[i][2]}}</tr><br>
-        <tr><strong>Aluno:</strong> {{ocorrencias[i][3]}}</tr><br>
-        <tr><strong>Turma:</strong> {{ocorrencias[i][0][5]}}</tr><br>
-        <tr><strong>Série:</strong> {{ocorrencias[i][0]}}</tr><br>
-        <tr><strong>Professor:</strong> {{ocorrencias[i][6]}}</li><br>
-        <div><strong>Ocorrência:</strong></div>
-    
-        <textarea rows="4" cols="50">{{ocorrencias[i][8]}}</textarea>
-    </div>
-</ul>
-{% endfor %}
-{% endif %}
+        <div class="container mt-4">
+            <div id="resultados">
+                <!-- Os resultados da busca serão exibidos aqui -->
+                {% if ocorrencias %}
+                    <ul class="list-group ocorrencia-list">
+                        {% for i in range(len) %}
+                            <li class="list-group-item">
+                                <strong>Data:</strong> {{ocorrencias[i][1]}}<br>
+                                <strong>Horário:</strong> {{ocorrencias[i][2]}}<br>
+                                <strong>Aluno:</strong> {{ocorrencias[i][3]}}<br>
+                                <strong>ATA:</strong> {{ocorrencias[i][12]}}<br>
+                                <strong>Turma:</strong> {{ocorrencias[i][4]}}<br>
+                                <strong>Série:</strong> {{ocorrencias[i][0]}}<br>
+                                <strong>Professor:</strong> {{ocorrencias[i][6]}}<br>
+                                <div><strong>Ocorrência:</strong></div>
+                                <textarea class="form-control" rows="4" cols="50" readonly>{{ocorrencias[i][8]}}</textarea>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
         </div>
-    </div>
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        
 </body>
 
 </html>

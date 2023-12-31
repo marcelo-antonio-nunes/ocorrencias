@@ -68,9 +68,6 @@ def consultar_ocorrencias(filtros):
         for c, v in filtros.items():
             if v:
                 ocorrencias.append( cursor.execute(f"select * from ocorrencias where {c} =?",[v,]))
-               
-                print(f"V={v}")
-                print(F"C={c}")
         ocorrencias = cursor.fetchall()
 
     return ocorrencias

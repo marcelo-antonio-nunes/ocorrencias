@@ -1,12 +1,13 @@
 import tkinter as tk
 from tkinter import messagebox
 import subprocess
+import os
 
 class LoginApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Login App")
-        self.root.geometry("300x200")
+        self.root.geometry("300x200+500+200")
 
         # Variáveis para armazenar nome e senha
         self.username_var = tk.StringVar()
@@ -41,12 +42,15 @@ class LoginApp:
         # Verificação de usuário e senha
         if username == "Marcelo" and password == "1975":
             messagebox.showinfo("Login", f"Bem-vindo, {username}!")
-            # Abre a calculadora do Windows
+            # Abre a main.py 
             subprocess.Popen("py main.py")
             # Fecha a janela de login
             self.root.destroy()
         else:
             messagebox.showerror("Erro de Login", "Nome de usuário ou senha incorretos.")
+            self.password_var.set("")
+            self.username_var.set("")
+            
 
     def rounded_button(self, button):
         button.config(relief=tk.GROOVE, bd=3, borderwidth=2, padx=5, pady=5, command=self.login)

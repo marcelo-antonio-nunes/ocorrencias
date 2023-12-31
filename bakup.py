@@ -8,7 +8,7 @@ class BackupManager:
     def __init__(self, root):
         self.root = root
         self.root.title("Gerenciador de Backup")
-        self.root.geometry("400x150")
+        self.root.geometry("400x150+400+150")
 
         self.create_widgets()
 
