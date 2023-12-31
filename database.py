@@ -32,42 +32,46 @@ def criar_tabela():
 def salvar_ocorrencia(data, horario, nome_aluno, turma, serie, nome_prof, materia,
                       ocorrencia, status1, encaminhamento, status2,
                       numero_ata, convocacao, responsavel):
-    with sqlite3.connect(DATABASE) as conn:
-        cursor = conn.cursor()
-        cursor.execute('''
-            INSERT INTO ocorrencias (
-                data, horario, nome_aluno, turma, serie, nome_prof, materia,
-                ocorrencia, status1, encaminhamento, status2,
-                numero_ata, convocacao, responsavel
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ''', (data, horario, nome_aluno, turma, serie, nome_prof, materia,
-              ocorrencia, status1, encaminhamento, status2,
-              numero_ata, convocacao, responsavel))
-        conn.commit()
+    try:
+        with sqlite3.connect(DATABASE) as conn:
+            cursor = conn.cursor()
+            cursor.execute('''
+                INSERT INTO ocorrencias (
+                    data, horario, nome_aluno, turma, serie, nome_prof, materia,
+                    ocorrencia, status1, encaminhamento, status2,
+                    numero_ata, convocacao, responsavel
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (data, horario, nome_aluno, turma, serie, nome_prof, materia,
+                  ocorrencia, status1, encaminhamento, status2,
+                  numero_ata, convocacao, responsavel))
+            conn.commit()
+    except sqlite3.Error as e:
+        print(f"Error saving occurrence: {e}")
 
 def consultar_ocorrencias(filtros):
-    ocorrencias = []
-    with conectar_banco() as conn:
-        cursor = conn.cursor()
+    try:
+        with conectar_banco() as conn:
+            cursor = conn.cursor()
+            
+            # Construct the SQL query dynamically based on filters
+            sql = 'SELECT * FROM ocorrencias WHERE 1=1'
+            params = []
 
-        # sql = '''
-        #     SELECT * FROM ocorrencias
-        #     WHERE 1=1
-        # '''
+            for campo, valor in filtros.items():
+                if valor:
+                    sql += f' AND {campo}=?'
+                    params.append(valor)
 
-        # params = []
-        # for campo, v in filtros.items():
-        #     if v:
-        #         # sql += f' AND {campo} LIKE ?'
-        #         # params.append(f'%{valor}%')
+            cursor.execute(sql, params)
+            ocorrencias = cursor.fetchall()
 
-        #         # sql += f' AND {campo} LIKE ?'
-        #         params.append(v)
+            return ocorrencias
 
-        # cursor.execute(sql, params)
-        for c, v in filtros.items():
-            if v:
-                ocorrencias.append( cursor.execute(f"select * from ocorrencias where {c} =?",[v,]))
-        ocorrencias = cursor.fetchall()
+    except sqlite3.Error as e:
+        print(f"Error querying occurrences: {e}")
+        return []
 
-    return ocorrencias
+# Example usage:
+# filtros = {'turma': 'A', 'status1': 'Pending'}
+# resultados = consultar_ocorrencias(filtros)
+# print(resultados)
