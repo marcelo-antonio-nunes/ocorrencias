@@ -2,6 +2,26 @@ import tkinter as tk
 from tkinter import messagebox
 import subprocess
 import os
+import time
+import webbrowser
+
+def execute_commands():
+    # Atualiza o pip
+    subprocess.run(["python.exe", "-m", "pip", "install", "--upgrade", "pip"])
+
+    # Instala as dependências do arquivo requirements.txt
+    subprocess.run(["pip", "install", "-r", "requirements.txt"])
+
+    # Aguarda um curto período de tempo (em segundos)
+    time.sleep(2)
+
+    # Abre o navegador padrão no endereço http://127.0.0.1:5000/
+    url = "http://127.0.0.1:5000/"
+    webbrowser.open(url)
+
+
+
+
 
 class LoginApp:
     def __init__(self, root):
@@ -40,8 +60,9 @@ class LoginApp:
         password = self.password_var.get()
 
         # Verificação de usuário e senha
-        if username == "Marcelo" and password == "1975":
+        if username == "Guara" and password == "ciara":
             messagebox.showinfo("Login", f"Bem-vindo, {username}!")
+            execute_commands()
             # Abre a main.py 
             subprocess.Popen("py main.py")
             # Fecha a janela de login
@@ -67,3 +88,4 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = LoginApp(root)
     root.mainloop()
+    

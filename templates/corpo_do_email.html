@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ocorrências Escolares</title>
+</head>
+<body>
+    <h2>Ocorrências Escolares</h2>
+    
+    {% for ocorrencia in dados %}
+        <div>
+            <strong>Data:</strong> {{ ocorrencia.data }}<br>
+            <strong>Horário:</strong> {{ ocorrencia.horario }}<br>
+            <strong>Aluno:</strong> {{ ocorrencia.aluno }}<br>
+            <!-- Adicione outros campos conforme necessário -->
+            <hr>
+        </div>
+    {% endfor %}
+</body>
+</html>

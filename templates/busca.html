@@ -13,41 +13,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <!-- Adicione o link para o Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+     <!-- Link para a folha de estilo externa -->
+     <link rel="stylesheet" href="/static/style/busca_style.css">
 
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .container {
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-top: 50px;
-        }
-
-        h2 {
-            color: #007bff;
-        }
-
-        button {
-            margin-top: 20px;
-        }
-        .btv{
-               
-               padding: 5px;
-               margin-top: 20px;
-               margin-left: 20px;
-               border-radius: 5px;
-               height: 40px;
-               width: 80px;
-               color: #ffffff;
-               background-color: yellow;
-               text-align: center;
-               
-           }
-    </style>
 </head>
 
 <body>
@@ -116,6 +84,11 @@
         <!-- Adicione as outras opções de turma conforme necessário -->
       </select>
                 </div>
+      <div class="form-group col-md-4">
+        <label for="responsavel">Tel:responsavel</label>
+        <input type="text" class="form-control" id="SerieAno" name="responsavel">
+    </div>
+                </div>
             </div>
             <div class="form-group text-center d-flex flex-row justify-content-center">
                 <!-- Mude o tipo de botão para 'submit' para enviar o formulário -->
@@ -140,12 +113,22 @@
                                 <strong>Aluno:</strong> {{ocorrencias[i][3]}}<br>
                                 <strong>ATA:</strong> {{ocorrencias[i][12]}}<br>
                                 <strong>Turma:</strong> {{ocorrencias[i][4]}}<br>
-                                <strong>Série:</strong> {{ocorrencias[i][0]}}<br>
+                                <strong>Série:</strong> {{ocorrencias[i][5]}}<br>
+                                <strong>Tel:Responsavel:</strong> {{ocorrencias[i][14]}}<br>
                                 <strong>Professor:</strong> {{ocorrencias[i][6]}}<br>
+                                <strong>Endereço:</strong> {{ocorrencias[i][15]}}<br>
                                 <div><strong>Ocorrência:</strong></div>
                                 <textarea class="form-control" rows="4" cols="50" readonly>{{ocorrencias[i][8]}}</textarea>
+                                <strong>destinatario:</strong>{{ocorrencias[i][16]}}
                             </li>
-                        {% endfor %}
+                            
+                            
+                            
+                            {% endfor %}
+                            <button type="button" class="btn btn-success" id="btnImprimir" onclick="prepararImpressao()">Imprimir Resultados</button>
+                            <!-- Adicione isso ao seu HTML onde deseja exibir o botão -->
+    <button type="button" class="btn btn-primary" id="btnEnviarEmail" onclick="enviarEmail()">Enviar Email</button>
+
                     </ul>
                 {% endif %}
             </div>
@@ -154,6 +137,89 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+            }
+    
+            h1 {
+                color: #333;
+            }
+    
+            #resultados {
+                /* Adicione estilos adicionais conforme necessário para o conteúdo da pesquisa */
+            }
+    
+            #btnImprimir {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="resultados">
+            <!-- Conteúdo da pesquisa aqui -->
+        </div>
+    
+        <script>
+            function prepararImpressao() {
+                var btnImprimir = document.getElementById('btnImprimir');
+                btnImprimir.style.display = 'none'; // Oculta o botão antes de imprimir
+    
+                var conteudo = document.getElementById('resultados').innerHTML;
+                var janelaImprimir = window.open('', '_blank');
+                janelaImprimir.document.write('<html><head><title>Resultado da Pesquisa</title>');
+                janelaImprimir.document.write('<style>body{font-family:Arial,sans-serif;margin:20px;}h1{color:#333;}');
+                janelaImprimir.document.write('#resultados{/* Adicione estilos adicionais conforme necessário para o conteúdo da pesquisa */}</style>');
+                janelaImprimir.document.write('</head><body>');
+                janelaImprimir.document.write('<h1>Resultado da Pesquisa</h1>');
+                janelaImprimir.document.write(conteudo);
+                janelaImprimir.document.write('</body></html>');
+                janelaImprimir.document.close();
+                janelaImprimir.print();
+    
+                btnImprimir.style.display = 'block'; // Restaura a exibição do botão após a impressão
+            }
+        </script>
+        <script>
+            function enviarEmail() {
+                // Extrair os dados do resultado e criar um objeto JavaScript
+                var dados = [];
+                JSON.stringify({% for i in range(ocorrencias | length) %})
+                    var ocorrencia = {
+                        data: '{{ocorrencias[i][1]}}',
+                        horario: '{{ocorrencias[i][2]}}',
+                        aluno: '{{ocorrencias[i][3]}}',
+                        ata: '{{ocorrencias[i][12]}}',
+                        turma: '{{ocorrencias[i][4]}}',
+                        serie: '{{ocorrencias[i][5]}}',
+                        telResponsavel: '{{ocorrencias[i][14]}}',
+                        professor: '{{ocorrencias[i][6]}}',
+                        endereco: '{{ocorrencias[i][15]}}',
+                        ocorrencia: '{{ocorrencias[i][8]}}'
+                    };
+                    {% endfor %}
+                    dados.push(ocorrencia);
+        
+                // Enviar dados para a rota Flask
+                fetch('/enviar_email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({dados: dados}),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Tratar a resposta, se necessário
+                    console.log('Resposta do servidor:', data);
+                })
+                .catch(error => {
+                    console.error('Erro ao enviar email:', error);
+                });
+            }
+        </script>
+        
         
 </body>
 

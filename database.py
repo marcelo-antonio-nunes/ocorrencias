@@ -24,14 +24,15 @@ def criar_tabela():
                 status2 TEXT NOT NULL,
                 numero_ata TEXT,
                 convocacao TEXT,
-                responsavel TEXT
+                responsavel TEXT,
+                end_res       
             )
         ''')
         conn.commit()
 
 def salvar_ocorrencia(data, horario, nome_aluno, turma, serie, nome_prof, materia,
                       ocorrencia, status1, encaminhamento, status2,
-                      numero_ata, convocacao, responsavel):
+                      numero_ata, convocacao, responsavel,end_res):
     try:
         with sqlite3.connect(DATABASE) as conn:
             cursor = conn.cursor()
@@ -39,11 +40,11 @@ def salvar_ocorrencia(data, horario, nome_aluno, turma, serie, nome_prof, materi
                 INSERT INTO ocorrencias (
                     data, horario, nome_aluno, turma, serie, nome_prof, materia,
                     ocorrencia, status1, encaminhamento, status2,
-                    numero_ata, convocacao, responsavel
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    numero_ata, convocacao, responsavel,end_res
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)
             ''', (data, horario, nome_aluno, turma, serie, nome_prof, materia,
                   ocorrencia, status1, encaminhamento, status2,
-                  numero_ata, convocacao, responsavel))
+                  numero_ata, convocacao, responsavel,end_res))
             conn.commit()
     except sqlite3.Error as e:
         print(f"Error saving occurrence: {e}")

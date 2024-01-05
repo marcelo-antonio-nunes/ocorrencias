@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
+    <!-- Definindo a codificação e a viewport para dispositivos móveis -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sucesso</title>
+
+    <!-- Título da página e link para o arquivo de estilo -->
+    <title>Falha ao Salvar</title>
     <link rel="stylesheet" href="/static/style/styles.css">
 </head>
+
 <body>
+    <!-- Container principal -->
+    <div class="container">
+        <!-- Caixa de mensagem para falha -->
+        <div class="message-box">
+            <!-- Mensagem de falha ao tentar salvar a ocorrência -->
+            <p>Falha ao tentar salvar Ocorrência!!</p>
 
-<div class="container">
-    <div class="message-box">
-        <p>Falha ao tentar salvar Ocorrência!!</p>
-        <button onclick="redirectToHome()">OK</button>
+            <!-- Botão OK com chamada para a função redirectToHome() -->
+            <button onclick="redirectToHome()">OK</button>
+        </div>
     </div>
-</div>
 
-<script src="/static/scripts/script.js"></script>
+    <!-- Inclusão do arquivo de script -->
+    <script src="/static/scripts/script.js"></script>
 </body>
+
 </html>
