@@ -196,9 +196,10 @@
                         telResponsavel: '{{ocorrencias[i][14]}}',
                         professor: '{{ocorrencias[i][6]}}',
                         endereco: '{{ocorrencias[i][15]}}',
-                        ocorrencia: '{{ocorrencias[i][8]}}'
+                        ocorrencia: '{{ocorrencias[i][8]}}',
+                        email:'{{ocorrencias[i][16]}}'
                     };
-                    {% endfor %}
+                    JSON.stringify({% endfor %})
                     dados.push(ocorrencia);
         
                 // Enviar dados para a rota Flask
@@ -213,10 +214,12 @@
                 .then(data => {
                     // Tratar a resposta, se necessário
                     console.log('Resposta do servidor:', data);
+                   
                 })
                 .catch(error => {
                     console.error('Erro ao enviar email:', error);
                 });
+                alert("Email enviado com sucesso!!!")
             }
         </script>
         

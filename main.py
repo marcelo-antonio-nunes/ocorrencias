@@ -31,6 +31,7 @@ def enviar_email():
             <p>Prezados pais e responsáveis,</p>
     """
     for ocorrencia in dados:
+        
         corpo_email += f"""
         <p>Espero que esta mensagem os encontre bem. Gostaria de informar sobre um incidente ocorrido no dia {ocorrencia['data']}, durante o horário das {ocorrencia['horario']}, envolvendo o aluno {ocorrencia['aluno']}, da turma {ocorrencia['turma']}, {ocorrencia['serie']}ª série.</p>
 
@@ -54,7 +55,7 @@ def enviar_email():
         <p>Agradecemos pela atenção e colaboração. Estamos à disposição para esclarecer qualquer dúvida e trabalhar em conjunto para manter um ambiente escolar seguro e saudável.</p>
 
         <p>Atenciosamente,</p>
-        <p><strong>{ocorrencia['professor']}</strong><br>professor<br>E.E.Profͣ Vânia Ap. Cassará </p>
+        <p><strong>{ocorrencia['professor']}</strong><br>professor<br>E.E.Prof Vânia Ap. Cassará </p>
 """
 
     corpo_email += """
@@ -65,7 +66,7 @@ def enviar_email():
     msg = email.message.Message()
     msg['Subject'] = "Assunto"
     msg['From'] = 'marcelo197519@gmail.com' #'escolavaniaaparecida2@gmail.com'
-    msg['To'] = 'marcelo197519@gmail.com'#ocorrencia['emal']
+    msg['To'] = ocorrencia['email']
     password = "vmztwphyxvxoyfrj"
     msg.add_header('Content-type', 'text/html')
     msg.set_payload(corpo_email)
@@ -108,6 +109,7 @@ def salvar_ocorrencia_route():
         convocacao = request.form["convocacao"]
         responsavel = request.form["responsavel"]
         end_res = request.form["end_res"]
+        email = request.form['email']
 
         # Salvar a ocorrência no banco de dados
         salvar_ocorrencia(
@@ -125,7 +127,8 @@ def salvar_ocorrencia_route():
             numero_ata,
             convocacao,
             responsavel,
-            end_res
+            end_res,
+            email
             
         )
 
