@@ -119,7 +119,7 @@
                                 <strong>Endereço:</strong> {{ocorrencias[i][15]}}<br>
                                 <div><strong>Ocorrência:</strong></div>
                                 <textarea class="form-control" rows="4" cols="50" readonly>{{ocorrencias[i][8]}}</textarea>
-                                <strong>destinatario:</strong>{{ocorrencias[i][16]}}
+                                <!-- <strong>destinatario:</strong>{{ocorrencias[i][16]}} -->
                             </li>
                             
                             
@@ -162,28 +162,31 @@
         </div>
     
         <script>
-            function prepararImpressao() {
-                var btnImprimir = document.getElementById('btnImprimir');
-                btnImprimir.style.display = 'none'; // Oculta o botão antes de imprimir
-    
-                var conteudo = document.getElementById('resultados').innerHTML;
-                var janelaImprimir = window.open('', '_blank');
-                janelaImprimir.document.write('<html><head><title>Resultado da Pesquisa</title>');
-                janelaImprimir.document.write('<style>body{font-family:Arial,sans-serif;margin:20px;}h1{color:#333;}');
-                janelaImprimir.document.write('#resultados{/* Adicione estilos adicionais conforme necessário para o conteúdo da pesquisa */}</style>');
-                janelaImprimir.document.write('</head><body>');
-                janelaImprimir.document.write('<h1>Resultado da Pesquisa</h1>');
-                janelaImprimir.document.write(conteudo);
-                janelaImprimir.document.write('</body></html>');
-                janelaImprimir.document.close();
-                janelaImprimir.print();
-    
-                btnImprimir.style.display = 'block'; // Restaura a exibição do botão após a impressão
-            }
-        </script>
+ function prepararImpressao() {
+    var btnImprimir = document.getElementById('btnImprimir');
+    btnImprimir.style.display = 'none'; // Oculta o botão antes de imprimir
+    var btnEnviarEmail = document.getElementById('btnEnviarEmail');
+    btnEnviarEmail.style.display = 'none'; // Oculta o botão antes de imprimir
+
+    var conteudo = document.getElementById('resultados').innerHTML;
+    var janelaImprimir = window.open('', '_blank');
+    janelaImprimir.document.write('<html><head><title>Resultado da Pesquisa</title>');
+    janelaImprimir.document.write('<link rel="stylesheet" type="text/css" href="caminho/para/estilos.css">');
+    janelaImprimir.document.write('</head><body>');
+    janelaImprimir.document.write('<h1>Resultado da Pesquisa</h1>');
+    janelaImprimir.document.write(conteudo);
+    janelaImprimir.document.write('</body></html>');
+    janelaImprimir.document.close();
+    btnImprimir.style.display = 'block';
+    btnEnviarEmail.style.display = 'block'
+    janelaImprimir.print();
+}
+</script>
+
         <script>
             function enviarEmail() {
                 // Extrair os dados do resultado e criar um objeto JavaScript
+
                 var dados = [];
                 JSON.stringify({% for i in range(ocorrencias | length) %})
                     var ocorrencia = {
