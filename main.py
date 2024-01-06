@@ -46,11 +46,12 @@ def enviar_email():
             <li>Professor: {ocorrencia['professor']}</li>
             <li>Endereço: {ocorrencia['endereco']}</li>
             <li>Ocorrência: {ocorrencia['ocorrencia']}</li>
+             <li>Atendido por: {ocorrencia['atendido_por']}</li>
         </ul>
 
-        <p>A(o) professor(a) {ocorrencia['professor']} relata que o aluno esteve envolvido em uma ocorrência escolar. Estamos comprometidos em garantir a segurança e o bem-estar de todos os estudantes, e é por isso que compartilhamos essa informação com vocês.</p>
+        <p>A(o) professor(a) {ocorrencia['atendido_por']} relata que o aluno(a) esteve envolvido em uma ocorrência escolar. Estamos comprometidos em garantir a segurança e o bem-estar de todos os estudantes, e é por isso que compartilhamos essa informação com vocês.</p>
 
-        <p>Para mais detalhes sobre o incidente ou para discutir medidas preventivas, pedimos que entrem em contato com a escola. O telefone para contato é {ocorrencia['telResponsavel']}, que é o número do responsável pelo aluno.</p>
+        <p>Para mais detalhes sobre o incidente ou para discutir medidas preventivas, pedimos que entrem em contato com a escola. O telefone para contato é {ocorrencia['telResponsavel']}, que é o número do professor responsável.</p>
 
         <p>Agradecemos pela atenção e colaboração. Estamos à disposição para esclarecer qualquer dúvida e trabalhar em conjunto para manter um ambiente escolar seguro e saudável.</p>
 
@@ -91,104 +92,114 @@ def ocorrencia():
 @app.route("/salvar_ocorrencia", methods=["POST"])
 def salvar_ocorrencia_route():
     criar_tabela()
+    try:
+        if request.method == "POST":
+            # Obtenha os dados do formulário
+            data = request.form["data"]
+            horario = request.form["horario"]
+            nome_aluno = request.form["nomeAluno"]
+            turma = request.form["turma"]
+            serie = request.form["serie"]
+            nome_prof = request.form["nomeProf"]
+            materia = request.form["materia"]
+            ocorrencia = request.form["ocorrencia"]
+            status1 = request.form["status1"]
+            encaminhamento = request.form["encaminhamento"]
+            status2 = request.form["status2"]
+            numero_ata = request.form["numeroATA"]
+            convocacao = request.form["convocacao"]
+            responsavel = request.form["responsavel"]
+            end_res = request.form["end_res"]
+            email = request.form['email']
+            Atendido_por = request.form['Atendido_por']
 
-    if request.method == "POST":
-        # Obtenha os dados do formulário
-        data = request.form["data"]
-        horario = request.form["horario"]
-        nome_aluno = request.form["nomeAluno"]
-        turma = request.form["turma"]
-        serie = request.form["serie"]
-        nome_prof = request.form["nomeProf"]
-        materia = request.form["materia"]
-        ocorrencia = request.form["ocorrencia"]
-        status1 = request.form["status1"]
-        encaminhamento = request.form["encaminhamento"]
-        status2 = request.form["status2"]
-        numero_ata = request.form["numeroATA"]
-        convocacao = request.form["convocacao"]
-        responsavel = request.form["responsavel"]
-        end_res = request.form["end_res"]
-        email = request.form['email']
+            # Salvar a ocorrência no banco de dados
+            salvar_ocorrencia(
+                data,
+                horario,
+                nome_aluno,
+                turma,
+                serie,
+                nome_prof,
+                materia,
+                ocorrencia,
+                status1,
+                encaminhamento,
+                status2,
+                numero_ata,
+                convocacao,
+                responsavel,
+                end_res,
+                email,
+                Atendido_por
+                
+            )
 
-        # Salvar a ocorrência no banco de dados
-        salvar_ocorrencia(
-            data,
-            horario,
-            nome_aluno,
-            turma,
-            serie,
-            nome_prof,
-            materia,
-            ocorrencia,
-            status1,
-            encaminhamento,
-            status2,
-            numero_ata,
-            convocacao,
-            responsavel,
-            end_res,
-            email
-            
-        )
-
-        return render_template("msg_ok.html")
-    else:
-        return render_template("msg_error.html")
+            return render_template("msg_ok.html")
+        else:
+            return render_template("msg_error.html")
+    except:
+        return render_template("index.html")
 
 
 # Rota para a busca
 @app.route("/busca", methods=["GET", "POST"])
 def buscar_ocorrencias():
-    if request.method == "POST":
-        # Obtenha os parâmetros da consulta do formulário
-        data = request.form.get("data")
-        nome_aluno = request.form.get("nome_aluno")
-        status1 = request.form.get("status1")
-        status2 = request.form.get("status2")
-        numero_ata = request.form.get("numeroATA")
-        nome_prof = request.form.get("nome_prof")
-        turma = request.form.get("turma")
-        serie = request.form.get("serie")
-        responsavel = request.form["responsavel"]
-        end_res = request.form.get("end_res")
-        email = request.form.get("email")
-        # Construa um dicionário com os filtros
-        filtros = {
-            "nome_aluno": nome_aluno,
-            "data": data,
-            "status1": status1,
-            "status2": status2,
-            "numero_ata": numero_ata,
-            "nome_prof": nome_prof,
-            "turma": turma,
-            "serie": serie,
-            "responsavel":responsavel,
-            "end_res":end_res,
-            "email":email
-        }
-        if (
-            nome_aluno
-            or data
-            or status1
-            or status2
-            or numero_ata
-            or nome_prof
-            or turma
-            or serie
-            or responsavel
-            or email
-        ):
-            # Consulte o banco de dados com base nos filtros
-            r = consultar_ocorrencias(filtros)
-            ocorrencias = []
-            for i in r:
-                ocorrencias.append(i)
-            return render_template(
-                "busca.html", ocorrencias=ocorrencias, len=len(ocorrencias)
-            )
+    try:
+        if request.method == "POST":
+            # Obtenha os parâmetros da consulta do formulário
+            data = request.form.get("data")
+            nome_aluno = request.form.get("nome_aluno")
+            status1 = request.form.get("status1")
+            status2 = request.form.get("status2")
+            numero_ata = request.form.get("numeroATA")
+            nome_prof = request.form.get("nome_prof")
+            turma = request.form.get("turma")
+            serie = request.form.get("serie")
+            responsavel = request.form["responsavel"]
+            end_res = request.form.get("end_res")
+            email = request.form.get("email")
+            Atendido_por = request.form.get("Atendido_por")
+            # Construa um dicionário com os filtros
+            filtros = {
+                "nome_aluno": nome_aluno,
+                "data": data,
+                "status1": status1,
+                "status2": status2,
+                "numero_ata": numero_ata,
+                "nome_prof": nome_prof,
+                "turma": turma,
+                "serie": serie,
+                "responsavel":responsavel,
+                "end_res":end_res,
+                "email":email,
+                "Atendido_por":Atendido_por
+            }
+            if (
+                nome_aluno
+                or data
+                or status1
+                or status2
+                or numero_ata
+                or nome_prof
+                or turma
+                or serie
+                or responsavel
+                or email
+                or Atendido_por
+            ):
+                # Consulte o banco de dados com base nos filtros
+                r = consultar_ocorrencias(filtros)
+                ocorrencias = []
+                for i in r:
+                    ocorrencias.append(i)
+                return render_template(
+                    "busca.html", ocorrencias=ocorrencias, len=len(ocorrencias)
+                )
 
-    return render_template("busca.html")
+        return render_template("busca.html")
+    except:
+        return render_template("index.html")
 
 
 
