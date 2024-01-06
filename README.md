@@ -1,4 +1,5 @@
 # Ocorrências
+## ![gr](https://github.com/marcelo-antonio-nunes/ocorrencias/assets/62920999/1bcd64ef-1206-488b-a192-3261f72bb9ed)
 
 
 Este repositório contém um programa em Python para o gerenciamento de ocorrências.
