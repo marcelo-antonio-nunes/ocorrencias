@@ -19,7 +19,7 @@ Certifique-se de ter os seguintes pré-requisitos instalados em sua máquina:
    ```bash
    git clone https://github.com/marcelo-antonio-nunes/ocorrencias.git
 
-# Criar atalhos
+## Criar atalhos
 - Na area de trabalho click com o botão direito do mouse e va ate a opção novo depois em atalho
 - navege ate a pasta do programa escolha o start.exe, agora so avançar e concluir
 - depois repita os passos para bkup.exe 
