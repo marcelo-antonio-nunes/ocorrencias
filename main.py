@@ -47,7 +47,7 @@ def enviar_email():
 
         <p>A(o) professor(a) {ocorrencia['atendido_por']} relata que o aluno(a) esteve envolvido em uma ocorrência escolar. Estamos comprometidos em garantir a segurança e o bem-estar de todos os estudantes, e é por isso que compartilhamos essa informação com vocês.</p>
 
-        <p>Para mais detalhes sobre o incidente ou para discutir medidas preventivas, pedimos que entrem em contato com a escola. pelo telefone:<strong>{ocorrencia['telResponsavel']} de segunda a sexta-feira das 10:00 às 15:00.</strong></p>
+        <p>Para mais detalhes sobre o incidente ou para discutir medidas preventivas, pedimos que entrem em contato com a escola. pelo telefone:<strong>(11) 4738-4112 de segunda a sexta-feira das 10:00 às 15:00.</strong></p>
 
         <p>Agradecemos pela atenção e colaboração. Estamos à disposição para esclarecer qualquer dúvida e trabalhar em conjunto para manter um ambiente escolar seguro e saudável.</p>
 
