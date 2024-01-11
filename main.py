@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request,jsonify,json
+from flask import Flask, render_template, request, jsonify, json
 from jinja2 import Environment, FileSystemLoader
 from database import criar_tabela, salvar_ocorrencia, consultar_ocorrencias
 import email.message
@@ -6,15 +6,15 @@ import smtplib
 
 app = Flask(__name__)
 
-template_env = Environment(loader=FileSystemLoader('templates'))
+template_env = Environment(loader=FileSystemLoader("templates"))
 
 # Configuração do banco de dados SQLite
 DATABASE = "ocorrencias.db"
 
 
-@app.route('/enviar_email', methods=['POST'])
+@app.route("/enviar_email", methods=["POST"])
 def enviar_email():
-    dados = request.json.get('dados', [])
+    dados = request.json.get("dados", [])
     corpo_email = """
     <!DOCTYPE html>
     <html lang="pt-br">
@@ -31,33 +31,33 @@ def enviar_email():
             <p>Prezados pais e responsáveis,</p>
     """
     for ocorrencia in dados:
-        
         corpo_email += f"""
-        <p>Espero que esta mensagem os encontre bem. Gostaria de informar sobre um incidente ocorrido no dia {ocorrencia['data']}, durante o horário das {ocorrencia['horario']}, envolvendo o aluno {ocorrencia['aluno']}, da turma {ocorrencia['turma']}, {ocorrencia['serie']}ª série.</p>
+        <p>Espero que esta mensagem os encontre bem. Gostaria de informar sobre um incidente ocorrido no dia {ocorrencia['data']}, durante o horário das {ocorrencia['horario']}, envolvendo o aluno {ocorrencia['aluno']}, do {ocorrencia['serie']}ª Ano turma {ocorrencia['turma']}.</p>
 
         <p><strong>Detalhes do incidente:</strong></p>
         <ul>
             <li>Data: {ocorrencia['data']}</li>
             <li>Horário: {ocorrencia['horario']}</li>
             <li>Aluno: {ocorrencia['aluno']}</li>
-            <li>Ata: {ocorrencia['ata']}</li>
+            <li>Ano/Série: {ocorrencia['serie']}ª</li>
             <li>Turma: {ocorrencia['turma']}</li>
-            <li>Série: {ocorrencia['serie']}</li>
-            <li>Professor: {ocorrencia['professor']}</li>
-            <li>Endereço: {ocorrencia['endereco']}</li>
-            <li>Ocorrência: {ocorrencia['ocorrencia']}</li>
              <li>Atendido por: {ocorrencia['atendido_por']}</li>
+            <li>Ocorrência: {ocorrencia['ocorrencia']}</li>
         </ul>
 
         <p>A(o) professor(a) {ocorrencia['atendido_por']} relata que o aluno(a) esteve envolvido em uma ocorrência escolar. Estamos comprometidos em garantir a segurança e o bem-estar de todos os estudantes, e é por isso que compartilhamos essa informação com vocês.</p>
 
-        <p>Para mais detalhes sobre o incidente ou para discutir medidas preventivas, pedimos que entrem em contato com a escola. O telefone para contato é {ocorrencia['telResponsavel']}, que é o número do professor responsável.</p>
+        <p>Para mais detalhes sobre o incidente ou para discutir medidas preventivas, pedimos que entrem em contato com a escola. pelo telefone:<strong>{ocorrencia['telResponsavel']} de segunda a sexta-feira das 10:00 às 15:00.</strong></p>
 
         <p>Agradecemos pela atenção e colaboração. Estamos à disposição para esclarecer qualquer dúvida e trabalhar em conjunto para manter um ambiente escolar seguro e saudável.</p>
 
-        <p>Atenciosamente,</p>
-        <p><strong>{ocorrencia['professor']}</strong><br>professor<br>E.E.Prof Vânia Ap. Cassará </p>
-"""
+        <p>Atenciosamente<br>
+        <hr style="border: 0.5px solid #ccc; margin-top: 10px; margin-bottom: 10px;">
+        <strong>Gestão/Coordenação<br>
+        E.E.Professora Vânia Aparecida Cassará<br>
+        Avenida João de Souza Franco, 350 - Jundiapeba - Mogi das Cruzes - SP<br>
+        Telefone: (11) 4738-4112</strong></p>
+        """
 
     corpo_email += """
         </div>
@@ -65,28 +65,33 @@ def enviar_email():
     </html>
     """
     msg = email.message.Message()
-    msg['Subject'] = "Assunto"
-    msg['From'] = 'marcelo197519@gmail.com' #'escolavaniaaparecida2@gmail.com'
-    msg['To'] = ocorrencia['email']
+    msg["Subject"] = "Assunto"
+    msg["From"] = "marcelo197519@gmail.com"  #'escolavaniaaparecida2@gmail.com'
+    msg["To"] = ocorrencia["email"]
     password = "vmztwphyxvxoyfrj"
-    msg.add_header('Content-type', 'text/html')
+    msg.add_header("Content-type", "text/html")
     msg.set_payload(corpo_email)
-    s = smtplib.SMTP('smtp.gmail.com:587')
+    s = smtplib.SMTP("smtp.gmail.com:587")
     s.starttls()
-    s.login(msg['From'], password)
-    s.sendmail(msg['From'], msg['To'], msg.as_string().encode('utf-8'))
-    print('Email enviado')
+    s.login(msg["From"], password)
+    s.sendmail(msg["From"], msg["To"], msg.as_string().encode("utf-8"))
+    print("Email enviado")
     return corpo_email
-#-----------------------------email---------------------------
+
+
+# -----------------------------email---------------------------
+
 
 # Página inicial
 @app.route("/")
 def index():
     return render_template("index.html")
 
+
 @app.route("/ocorrencia")
 def ocorrencia():
     return render_template("form_ocorrencia.html")
+
 
 # Rota para lidar com o envio do formulário
 @app.route("/salvar_ocorrencia", methods=["POST"])
@@ -110,8 +115,8 @@ def salvar_ocorrencia_route():
             convocacao = request.form["convocacao"]
             responsavel = request.form["responsavel"]
             end_res = request.form["end_res"]
-            email = request.form['email']
-            Atendido_por = request.form['Atendido_por']
+            email = request.form["email"]
+            Atendido_por = request.form["Atendido_por"]
 
             # Salvar a ocorrência no banco de dados
             salvar_ocorrencia(
@@ -131,8 +136,7 @@ def salvar_ocorrencia_route():
                 responsavel,
                 end_res,
                 email,
-                Atendido_por
-                
+                Atendido_por,
             )
 
             return render_template("msg_ok.html")
@@ -170,10 +174,10 @@ def buscar_ocorrencias():
                 "nome_prof": nome_prof,
                 "turma": turma,
                 "serie": serie,
-                "responsavel":responsavel,
-                "end_res":end_res,
-                "email":email,
-                "Atendido_por":Atendido_por
+                "responsavel": responsavel,
+                "end_res": end_res,
+                "email": email,
+                "Atendido_por": Atendido_por,
             }
             if (
                 nome_aluno
@@ -202,6 +206,5 @@ def buscar_ocorrencias():
         return render_template("index.html")
 
 
-
 if __name__ == "__main__":
-   app.run(host='0.0.0.0', debug=True)
+    app.run(host="0.0.0.0", debug=True)

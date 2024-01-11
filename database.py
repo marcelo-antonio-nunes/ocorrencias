@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime
 
 DATABASE = 'ocorrencias.db'
 
@@ -35,6 +36,7 @@ def criar_tabela():
 def salvar_ocorrencia(data, horario, nome_aluno, turma, serie, nome_prof, materia,
                       ocorrencia, status1, encaminhamento, status2,
                       numero_ata, convocacao, responsavel,end_res, email,Atendido_por):
+    data_formatada = datetime.strptime(data, '%Y-%m-%d').strftime('%d-%m-%Y')
     try:
         with sqlite3.connect(DATABASE) as conn:
             cursor = conn.cursor()
@@ -44,7 +46,7 @@ def salvar_ocorrencia(data, horario, nome_aluno, turma, serie, nome_prof, materi
                     ocorrencia, status1, encaminhamento, status2,
                     numero_ata, convocacao, responsavel,end_res, email,Atendido_por
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)
-            ''', (data, horario, nome_aluno, turma, serie, nome_prof, materia,
+            ''', (data_formatada, horario, nome_aluno, turma, serie, nome_prof, materia,
                   ocorrencia, status1, encaminhamento, status2,
                   numero_ata, convocacao, responsavel,end_res,email,Atendido_por))
             conn.commit()
