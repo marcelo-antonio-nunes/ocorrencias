@@ -1,10 +1,12 @@
-from flask import Flask, render_template, request, jsonify, json
+from flask import Flask, render_template, request, redirect, json,flash,url_for
 from jinja2 import Environment, FileSystemLoader
 from database import criar_tabela, salvar_ocorrencia, consultar_ocorrencias
 import email.message
 import smtplib
 
 app = Flask(__name__)
+app.secret_key = 'secreto'  # Substitua por uma chave secreta mais segura
+
 
 template_env = Environment(loader=FileSystemLoader("templates"))
 
@@ -83,9 +85,9 @@ def enviar_email():
 
 
 # Página inicial
-@app.route("/")
-def index():
-    return render_template("index.html")
+@app.route('/plincipal')
+def dashboard():
+    return render_template('index.html')
 
 
 @app.route("/ocorrencia")
@@ -204,7 +206,29 @@ def buscar_ocorrencias():
         return render_template("busca.html")
     except:
         return render_template("index.html")
+#$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+@app.route('/')
+def login_page():
+    return render_template('login.html')
 
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.form['username']
+    password = request.form['password']
+
+    # Verifique o usuário e senha (substitua isso por sua lógica real)
+    if username == "Guara" and password == "ciara":
+        flash(f"Bem-vindo, {username}!", 'success')
+        # execute_commands()
+        # Adapte para a lógica real do seu aplicativo Flask
+        return redirect(url_for('dashboard'))
+    else:
+        flash("Nome de usuário ou senha incorretos.", 'error')
+        return redirect(url_for('login_page'))
+
+
+
+#$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)

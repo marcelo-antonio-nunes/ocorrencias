@@ -1,3 +1,3 @@
 function redirectToHome() {
-    window.location.href = "/";
+    window.location.href = "/plincipal";
 }
