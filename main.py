@@ -70,7 +70,7 @@ def enviar_email():
     msg["Subject"] = "Assunto"
     msg["From"] = "marcelo197519@gmail.com"  #'escolavaniaaparecida2@gmail.com'
     msg["To"] = ocorrencia["email"]
-    password = "vmztwphyxvxoyfrj"
+    password = "nycytyvixdhuhyuj"
     msg.add_header("Content-type", "text/html")
     msg.set_payload(corpo_email)
     s = smtplib.SMTP("smtp.gmail.com:587")
