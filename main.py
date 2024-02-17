@@ -68,7 +68,7 @@ def enviar_email():
     """
     msg = email.message.Message()
     msg["Subject"] = "Assunto"
-    msg["From"] = "marcelo197519@gmail.com"  #'escolavaniaaparecida2@gmail.com'
+    msg["From"] = 'escolavaniaaparecida2@gmail.com'
     msg["To"] = ocorrencia["email"]
     password = "nycytyvixdhuhyuj"
     msg.add_header("Content-type", "text/html")
@@ -217,7 +217,7 @@ def login():
     password = request.form['password']
 
     # Verifique o usuário e senha (substitua isso por sua lógica real)
-    if username == "Guara" and password == "ciara":
+    if username == "coordenacao" and password == "1234":
         flash(f"Bem-vindo, {username}!", 'success')
         # execute_commands()
         # Adapte para a lógica real do seu aplicativo Flask
